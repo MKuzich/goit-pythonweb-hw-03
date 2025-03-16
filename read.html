@@ -37,33 +37,28 @@
       </nav>
     </header>
     <div class="container mt-3">
-      <main class="form-signin w-50 m-auto">
-        <form action="/message" method="POST">
-          <h1 class="h3 mb-3 fw-normal">Please send me message</h1>
-
-          <div class="row mb-3">
-            <label for="floatingInput">Your nickname</label>
-            <input
-              type="text"
-              class="form-control"
-              id="floatingInput"
-              name="username"
-            />
+      <main>
+        {% if data %}
+          <h1 class="text-center mb-3">
+            Messages
+          </h1>
+        {% for timestamp, info in data.items() %}
+        <div class="card mb-1">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>{{info['username']}}</h3>
+            <p class="mb-0">{{ timestamp }}</p>
           </div>
-
-          <div class="row mb-3 h-100">
-            <label for="floatingTextarea">Message</label>
-            <textarea
-              class="form-control"
-              id="floatingTextarea"
-              name="message"
-            ></textarea>
+          <div class="card-body">
+            <p class="blockquote mb-0">
+              <p class="mb-0">{{info['message']}}</p>
+            </p>
           </div>
-
-          <button class="w-100 btn btn-lg btn-primary" type="submit">
-            Send
-          </button>
-        </form>
+        </div>
+        {% endfor %} {% else %}
+        <h1 class="alert alert-warning text-center" role="alert">
+          No messages found
+        </h1>
+        {% endif %}
       </main>
     </div>
   </body>
